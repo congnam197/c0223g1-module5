@@ -58,5 +58,6 @@ let addedCourses = [
   },
 ];
 
-const mergeArrays = [...courses, ...addedCourses];
-console.log(mergeArrays);
+const mergeArrays = (arr1, arr2) => [...arr1, ...arr2];
+const newArray = mergeArrays(courses, addedCourses);
+console.log(newArray);
