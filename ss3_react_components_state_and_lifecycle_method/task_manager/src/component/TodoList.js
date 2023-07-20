@@ -14,10 +14,10 @@ class TodoList extends React.Component {
       };
     });
     console.log(event.target.value);
-  };
+  };  
   handleAddItem = () => {
     this.setState((temp) => {
-      if (temp.item != "" || temp.item.indexOf(temp.list) != -1) {
+      if (temp.item !== "" && temp.list.indexOf(temp.item) === -1) {
         return {
           list: [...temp.list, temp.item],
           item: "",
