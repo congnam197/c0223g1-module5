@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import AppTodo from './component/App';
+import TodoList from './component/TodoList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-<AppTodo />
+<TodoList />
 );
 
 // If you want to start measuring performance in your app, pass a function

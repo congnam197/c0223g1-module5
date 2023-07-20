@@ -1,5 +1,5 @@
 import React from "react";
-class AppTodo extends React.Component {
+class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,20 +8,24 @@ class AppTodo extends React.Component {
     };
   }
   handleChange = (event) => {
-    this.setState({ item: event.target.value });
+    this.setState(() => {
+      return {
+        item: event.target.value,
+      };
+    });
     console.log(event.target.value);
   };
   handleAddItem = () => {
-    if (this.state.item != "") {
-      const newList = this.state.list;
-      newList.push(this.state.item);
-      const newTask = {
-        newList,
-        item: "",
-      };
-      this.setState(newTask);
-    }
+    this.setState((temp) => {
+      if (temp.item != "" || temp.item.indexOf(temp.list) != -1) {
+        return {
+          list: [...temp.list, temp.item],
+          item: "",
+        };
+      }
+    });
   };
+
   render() {
     return (
       <div className="content">
@@ -41,7 +45,7 @@ class AppTodo extends React.Component {
           <h4>Task List</h4>
           <div className="list">
             <ul>
-              {this.state.list.map((item,index) => (
+              {this.state.list.map((item, index) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
@@ -51,4 +55,4 @@ class AppTodo extends React.Component {
     );
   }
 }
-export default AppTodo;
+export default TodoList;
