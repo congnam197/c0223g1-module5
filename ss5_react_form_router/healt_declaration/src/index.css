@@ -11,14 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+div{
+  padding-top: 10px;
+}
 label{
+  margin-bottom: 5px;
   display:block
+}
+input[type=text],input[type=number]{
+  width:40%;
+}
+textarea{
+  width: 40%;
+  height: 50px;
 }
 p{
   font-weight: bold;
 }
 .text-red{
   color: red;
+}
+.span{
+  margin-right: 10px;
 }
 .gender,.manifestation{
   display: inline-block;
