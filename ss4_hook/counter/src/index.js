@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import UseIncerment from './component/UseIncrement'
+import Counter1 from './component/Counter1';
+import Counter2 from './component/Counter2';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
- <UseIncerment />
+    <>
+ <Counter1/>
+ <Counter2/>
+ </>
 );
 
 // If you want to start measuring performance in your app, pass a function
