@@ -7,9 +7,7 @@ function Counter2() {
   return (
     <div>
       <h1>Count:{counter}</h1>
-      <button type="button" onClick={setCounter}>
-        Counter +2
-      </button>
+      <button type="button" onClick={setCounter}> Counter +2 </button>
     </div>
   );
 }
