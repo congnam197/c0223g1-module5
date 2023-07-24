@@ -1,5 +1,5 @@
 import React from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteBook, getBooksList } from "../service/BookService";
 import { useState, useEffect } from "react";
 export default function BooksManager() {
@@ -26,8 +26,7 @@ export default function BooksManager() {
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Quantity</th>
-              <th scope="col" colSpan={2}>
-                {" "}
+              <th scope="col" colSpan={2}>                
                 Action
               </th>
             </tr>
@@ -40,20 +39,18 @@ export default function BooksManager() {
                   <td>{book.quantity}</td>
                   <td>
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-primary"
                       // data-bs-toggle="modal"
                       // data-bs-target="#exampleModal"
-                      onClick={() => {
-                        deleteBook(book.id)
-                          .then(() => {
-                            getBooksList().then((data) => {
-                              setBooks(data);
-                            });
-                          })
-                          .catch(() => {
-                            console.log("error");
-                          });
+                      onClick={async () => {
+                        try {
+                          deleteBook(book.id);
+                          const data = await getBooksList();
+                          setBooks(data);
+                        } catch (error) {
+                          console.log(error.message);
+                        }
                       }}
                     >
                       Delete
