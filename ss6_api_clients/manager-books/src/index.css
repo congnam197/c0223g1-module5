@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.container{
+  max-width:1280px!important ;
+  margin-top: 40px;
+}
+.title{
+  display: flex;
+  padding: 40px 0px;
+}
+.title h1{
+  text-transform: uppercase;
+}
+.title button{
+  color: #fff;
+  background-color: #4ca935;
+  border-radius: 5px;
+  height: 50px;
+  margin-left: 60%;
+
+}
+input{
+ margin: 10px 0;
+  display: block;
+  border-radius: 5px;
+}
+button{
+  border-radius: 5px;
+}
+.btn-add{
+  background-color: #4da936;
+  color: #fff;
+  padding: 5px 40px;
+}
+button a{
+  text-decoration: none;
+  color: #fff;
+}
+.error{
+  margin-top: 2px;
+  color: red;
+}
+.back{
+  margin-top: 10px;
+  background-color: #333;
+  color: #fff;
+}
+#titleBookDelete{
+color: red;
+font-weight: bold;
+}
+.modal .warning{
+font-size: 13px;
+color: red;
+}
