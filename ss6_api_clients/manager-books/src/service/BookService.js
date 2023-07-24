@@ -10,6 +10,5 @@ export async function editBook(book) {
   await axios.put("http://localhost:8080/books/" + book.id, book);
 }
 export async function deleteBook(id) {
- const response= await axios.delete("http://localhot:8080/books/" + id);
-  return response.data;
+ await axios.delete("http://localhost:8080/books/" + id);
 }

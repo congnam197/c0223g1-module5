@@ -46,7 +46,9 @@ export default function BooksManager() {
                       onClick={async () => {
                         try {
                           deleteBook(book.id);
+                          alert("delete successfully")
                           const data = await getBooksList();
+                          // console.log(data)
                           setBooks(data);
                         } catch (error) {
                           console.log(error.message);
