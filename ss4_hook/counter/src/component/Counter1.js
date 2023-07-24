@@ -1,8 +1,8 @@
 import React from "react";
-import useIncerment from "../hooks/useIncerment";
+import useIncrement from "../hooks/useIncrement";
 
 function Counter1() {
-  const [counter, setCounter] = useIncerment(1);
+  const [counter, setCounter] = useIncrement(1);
 
   return (
     <div>

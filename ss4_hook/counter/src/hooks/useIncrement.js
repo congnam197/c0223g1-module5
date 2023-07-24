@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function useIncerment(addAmount) {
+export default function useIncrement(addAmount) {
   const [counter, setCounter] = useState(0);
 
   const increase = () => {
