@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { editBook, getBooksList } from "../service/BookService";
+import { editBook, getBooksList } from "../service/bookService";
 import { useParams } from "react-router";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";

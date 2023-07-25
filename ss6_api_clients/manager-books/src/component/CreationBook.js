@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getBooksList } from "../service/BookService";
-import { createAddNewBook } from "../service/BookService";
+import { getBooksList } from "../service/bookService";
+import { createAddNewBook } from "../service/bookService";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import { Form, Formik, Field, ErrorMessage } from "formik";

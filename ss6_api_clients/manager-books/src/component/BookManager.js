@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { deleteBook, getBooksList } from "../service/BookService";
+import { deleteBook, getBooksList } from "../service/bookService";
 import { useState, useEffect } from "react";
 export default function BooksManager() {
   const [books, setBooks] = useState([]);
