@@ -1,17 +1,16 @@
-import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
-import { createTask, getTodoList } from "../taskService";
+import { createTask, getTodoList } from "../service/taskService";
 
 export default function TodoList() {
   const [tasks, setTask] = useState([]);
 
+  const getTasks = async () => {
+    const data = await getTodoList();
+    setTask(data);
+  };
+
   useEffect(() => {
-    //DISPLAY TODO LIST
-    const getTasks = async () => {
-      const data = await getTodoList();
-      setTask(data);
-    };
     getTasks();
   }, []);
   //CREATE A NEW TASK
@@ -22,8 +21,7 @@ export default function TodoList() {
         title: title,
       };
       await createTask(object);
-      const data = await getTodoList();
-      setTask(data);
+      getTasks();
     }
   };
 
