@@ -6,17 +6,18 @@ import * as yup from "yup";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router";
 export default function EditionBook() {
+  const [book, setBook] = useState();
   const navigate = useNavigate();
   const param = useParams();
 
-  const [book, setBook] = useState();
+  const getBook = async () => {
+    const data = await getBooksList();
+    const book = data.filter((b) => b.id === +param.id)[0];
+    setBook(book);
+  };
+
   useEffect(() => {
-    const getBooks = async () => {
-      const data = await getBooksList();
-      const book = data.filter((b) => b.id === +param.id)[0];
-      setBook(book);
-    };
-    getBooks();
+    getBook();
   }, [param.id]);
   if (!book) {
     return null;
@@ -32,7 +33,10 @@ export default function EditionBook() {
         }}
         validationSchema={yup.object({
           title: yup.string().required("required"),
-          quantity: yup.number().required("required").max(100,"no more than 100"),
+          quantity: yup
+            .number()
+            .required("required")
+            .max(100, "no more than 100"),
         })}
         onSubmit={(value) => {
           editBook(value)

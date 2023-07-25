@@ -4,11 +4,11 @@ import { deleteBook, getBooksList } from "../service/bookService";
 import { useState, useEffect } from "react";
 export default function BooksManager() {
   const [books, setBooks] = useState([]);
+  const getBooks = async () => {
+    const data = await getBooksList();
+    setBooks(data);
+  };
   useEffect(() => {
-    const getBooks = async () => {
-      const data = await getBooksList();
-      setBooks(data);
-    };
     getBooks();
   }, []);
 
@@ -26,7 +26,7 @@ export default function BooksManager() {
             <tr>
               <th scope="col">Title</th>
               <th scope="col">Quantity</th>
-              <th scope="col" colSpan={2}>                
+              <th scope="col" colSpan={2}>
                 Action
               </th>
             </tr>
@@ -44,14 +44,14 @@ export default function BooksManager() {
                       // data-bs-toggle="modal"
                       // data-bs-target="#exampleModal"
                       onClick={async () => {
-                        try {
-                          deleteBook(book.id);
-                          alert("delete successfully")
-                          const data = await getBooksList();
-                          // console.log(data)
-                          setBooks(data);
-                        } catch (error) {
-                          console.log(error.message);
+                        if (window.confirm("Do want to delete?")) {
+                          deleteBook(book.id)
+                            .then(() => {
+                              getBooks();
+                            })
+                            .catch((error) => {
+                              console.log(error.message);
+                            });
                         }
                       }}
                     >
@@ -60,7 +60,6 @@ export default function BooksManager() {
                   </td>
                   <td>
                     <button type="button" className="btn btn-danger">
-                      {" "}
                       <Link to={`/books/edit/${book.id}`}>Edit</Link>
                     </button>
                   </td>
