@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { getBooksList } from "../service/bookService";
+import React from "react";
 import { createAddNewBook } from "../service/bookService";
 import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -7,14 +6,6 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 export default function () {
   const navigate = useNavigate();
-  const [books, setBooks] = useState([]);
-  useEffect(() => {
-    const getBooks = async () => {
-      const data = await getBooksList();
-      setBooks(data);
-    };
-    getBooks();
-  }, []);
 
   return (
     <>
