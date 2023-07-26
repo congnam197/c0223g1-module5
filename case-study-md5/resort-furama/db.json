@@ -7,8 +7,8 @@
     "gender": "Male",
     "id_card": "123456789",
     "phone_number": "0123456789",
-    "email": "nguyenvana@gmail.com",
-    "customer_type": "Regular",
+    "email": "nguyenanh@gmail.com",
+    "customer_type": "Platinium",
     "address": "No.1 Street A, District 1, Ho Chi Minh City"
     },
     {
@@ -18,8 +18,8 @@
     "gender": "Female",
     "id_card": "987654321",
     "phone_number": "0987654321",
-    "email": "tranthib@yahoo.com",
-    "customer_type": "Regular",
+    "email": "baotran22@yahoo.com",
+    "customer_type": "Diamond",
     "address": "No.2 Street B, District 2, Ho Chi Minh City"
     },
     {
@@ -30,7 +30,7 @@
     "id_card": "456789123",
     "phone_number": "0567891234",
     "email": "leminhc@hotmail.com",
-    "customer_type": "VIP",
+    "customer_type": "Gold",
     "address": "No.3 Street C, District 3, Ho Chi Minh City"
     },
     {
@@ -41,7 +41,7 @@
     "id_card": "369852147",
     "phone_number": "0369852147",
     "email": "phamthid@gmail.com",
-    "customer_type": "Regular",
+    "customer_type": "Gold",
     "address": "No.4 Street D, District 4, Ho Chi Minh City"
     },
     {
@@ -52,7 +52,7 @@
     "id_card": "258147369",
     "phone_number": "0258147369",
     "email": "hoangvane@yahoo.com",
-    "customer_type": "VIP",
+    "customer_type": "Gold",
     "address": "No.5 Street E, District 5, Ho Chi Minh City"
     },
     {
@@ -63,7 +63,7 @@
     "id_card": "147258369",
     "phone_number": "0147258369",
     "email": "nguyenthif@hotmail.com",
-    "customer_type": "Regular",
+    "customer_type": "Gold",
     "address": "No.6 Street F, District 6, Ho Chi Minh City"
     },
     {
@@ -74,7 +74,7 @@
     "id_card": "963852741",
     "phone_number": "0963852741",
     "email": "tranvang@gmail.com",
-    "customer_type": "VIP",
+    "customer_type": "Gold",
     "address": "No.7 Street G, District 7, Ho Chi Minh City"
     },
     {
@@ -84,8 +84,8 @@
     "gender": "Female",
     "id_card": "741852963",
     "phone_number": "0741852963",
-    "email": "lethih@yahoo.com",
-    "customer_type": "Regular",
+    "email": "lethihong@yahoo.com",
+    "customer_type": "Member",
     "address": "No.8 Street H, District 8, Ho Chi Minh City"
     },
     {
@@ -96,7 +96,7 @@
     "id_card": "852741963",
     "phone_number": "0852741963",
     "email": "phanvani@hotmail.com",
-    "customer_type": "Regular",
+    "customer_type": "Member",
     "address": "No.9 Street I, District 9, Ho Chi Minh City"
     },
     {
@@ -107,7 +107,7 @@
     "id_card": "654321987",
     "phone_number": "0654321987",
     "email": "tranthik@gmail.com",
-    "customer_type": "VIP",
+    "customer_type": "Member",
     "address": "No.10 Street K, District 10, Ho Chi Minh City"
    }
     ],
