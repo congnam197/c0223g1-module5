@@ -59,3 +59,17 @@ body {
     border: 0;
     margin-bottom: 1rem;
 }
+
+ #edit-service,#edit-customer ,#contract-creation,#customer-creation,#service-creation{
+    box-sizing: border-box;
+    padding:50px
+}
+#edit-service h1,#edit-customer h1, #contract-creation h1,#customer-creation h1,#service-creation h1{
+    text-transform: uppercase;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 40px;
+}
+#edit-service .btn,#edit-customer .btn, #contract-creation .btn,#customer-creation .btn,#service-creation .btn {
+margin-right: 10px;
+}

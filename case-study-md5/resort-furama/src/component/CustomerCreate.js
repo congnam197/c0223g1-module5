@@ -1,7 +1,8 @@
 import React from "react";
  export default function CustomerCreate(){
     return(
-        <div className="container">
+        <div className="container" id="customer-creation">
+          <h1>Creation Customer</h1>
   <div className="row gutters">
     <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
       <div className="card h-100">
@@ -16,7 +17,7 @@ import React from "react";
                 <a
                   href="/cdn-cgi/l/email-protection"
                   className="__cf_email__"
-                  data-cfemail="19606c7270595478616e7c7575377a7674"
+                
                 >
                   [email&nbsp;protected]
                 </a>

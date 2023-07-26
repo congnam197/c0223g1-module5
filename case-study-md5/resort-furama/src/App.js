@@ -1,9 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Header from "./component/Header";
-import Navigation from "./component/Navigation";
 import Footer from "./component/Footer";
-import Search from "./component/Search";
 import Service from "./component/ServiceManager";
 import ServiceCreate from "./component/ServiceCreate";
 import ServiceEdit from "./component/ServiceEdit";
@@ -23,7 +21,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={((<Navigation />), (<Search />), (<Service />))}
+            element={<Service />}
           />
           <Route path="/service/edit" element={<ServiceEdit />} />
           <Route path="service/create" element={<ServiceCreate />} />

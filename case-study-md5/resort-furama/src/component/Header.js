@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import logo from '../../src/assets/images/logo/furama-hotel-logo.png';
 function Header() {
   return (
     <header>
@@ -12,7 +13,7 @@ function Header() {
                   <div className="logo">
                     <a href="index.html">
                       <img
-                        src="img/furama-hotel-logo.png"
+                        src={logo}
                         alt=""
                         style={{ maxWidth: 250, maxHeight: 35 }}
                       />
