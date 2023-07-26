@@ -1,23 +1,16 @@
 const initialValue = {
-  id: "",
-  name: "",
-  username: "",
-  email: "",
-};
+  user: []
+}
 
 export const userReducer = (state = initialValue, action) => {
   switch (action.type) {
-    case "DELETE_USER":
-      return {
-        ...action.payload,
-      };
-    case "GET_LIST_USER":
-      return {
-        ...action.payload,
-      };
-    default:
-      return {
-        state,
-      };
+      case 'USER_INFO':
+          const user = [...state.user]
+          const index = user.findIndex(p => p.id === action.payload.id)
+          return {
+              user
+          }
+      default:
+          return state;
   }
-};
+}

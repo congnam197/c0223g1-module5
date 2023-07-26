@@ -1,12 +1,10 @@
-export const getUser = (list) => {
+export const userInfo = (userInfo) => {
   return {
-    type:'GET_LIST_USER',
-    payload:list
-  };
-};
-export const deleteUser =(user) =>{
-    return {
-        type :'DELETE_USER',
-        payload: user
-    }
+      type: 'USER_INFO',
+      payload: userInfo
+  }
+}
+
+export const getUser = (state) => {
+  return state.userReducer.user;
 }
