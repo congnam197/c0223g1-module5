@@ -1,10 +1,9 @@
-export const userInfo = (userInfo) => {
-  return {
-      type: 'USER_INFO',
-      payload: userInfo
-  }
-}
+export const getUsers = (users) => ({
+  type: "GET_USERS",
+  payload:  {users} ,
+});
 
-export const getUser = (state) => {
-  return state.userReducer.user;
-}
+export const deleteUserAction = (userId) => ({
+  type: "DELETE_USER",
+  payload: {userId} ,
+});

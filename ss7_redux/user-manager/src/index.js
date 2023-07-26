@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import Header from "./component/Header";
 import UsersList from "./component/UsersList";
 import { Provider } from "react-redux";
 import {store} from "./user/store"
@@ -11,12 +9,7 @@ import {store} from "./user/store"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-  <BrowserRouter>
-  <Header />
-  <Routes >
- <Route path="/list" element={<UsersList />}/>
-  </Routes>
-  </BrowserRouter>
+  <UsersList />
   </Provider>
 );
 
