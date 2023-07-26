@@ -5,8 +5,6 @@ import styles from '@/styles/Home.module.css'
 import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.css";
 
-
-const inter = Inter({ subsets: ['latin'] })
 export async function getStaticProps() {
   const res = await axios.get("http://localhost:8080/covids")
   const data = res.data;
@@ -18,7 +16,6 @@ export async function getStaticProps() {
   }
 }
 export default function Home({covidData}) {
-
   return (
     <div className='container'>
     <div className='title'>
