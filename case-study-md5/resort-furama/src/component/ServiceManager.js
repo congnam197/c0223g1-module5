@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Search from "./Search";
 import Navigation from "./Navigation";
 import { getListService } from "../service/service";
+import { Link } from "react-router-dom";
 function Service() {
   const [services, setServices] = useState([]);
 
@@ -17,7 +18,7 @@ function Service() {
     <>
       <Navigation />
       <Search />
-      <div className="popular_places_area">
+      <div className="popular_places_area" id="service">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-6">
@@ -37,16 +38,16 @@ function Service() {
                       src="img/service/Furama_Garden-Deluxe-5-450x291.jpg"
                       alt=""
                     />
-                    <a href="#" className="prise">
-                      {service.costs}
-                    </a>
+                    <p className="prise">
+                      ${service.costs}
+                    </p>
                   </div>
                   <div className="place_info">
-                    <a href="">
+                    <Link href="">
                       <h3>{service.service}</h3>
-                    </a>
+                    </Link>
                     <p>
-                      Room size: <span style={{color:'red'}}>{service.usable_area}</span>
+                      Room size: <span style={{color:'red'}}>{service.usable_area}m2</span>
                     </p>
                     <div className="rating_days d-flex justify-content-between">
                       <span className="d-flex justify-content-center align-items-center">
@@ -55,19 +56,19 @@ function Service() {
                         <i className="fa fa-star" />
                         <i className="fa fa-star" />
                         <i className="fa fa-star" />
-                        <a href="#">(20 Review)</a>
+                        <span>(20 Review)</span>
                       </span>
                       <div className="days">
-                        <a
-                          href="edit.html"
+                        <Link
+                          to={`/service/edit/${service.id}`}
                           style={{ backgroundColor: "#1ec6b6", color: "white" }}
                           className="btn"
                         >
                           {" "}
                           Edit
-                        </a>
+                        </Link>
                         <a
-                          href="#deleteEmployeeModal"
+                          href="#deleteModal"
                           data-toggle="modal"
                           style={{ backgroundColor: "#ff4a52", color: "white" }}
                           className="btn"
@@ -384,6 +385,45 @@ function Service() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      {/* Modal Delete */}
+      <div id="deleteModal" className="modal fade">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form>
+              <div className="modal-header">
+                <h4 className="modal-title">Delete Service</h4>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-hidden="true"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete these Service?</p>
+                <p className="text-warning">
+                  <small style={{color:"red"}}>This action cannot be undone.</small>
+                </p>
+              </div>
+              <div className="modal-footer">
+                <input
+                  type="button"
+                  className="btn btn-default"
+                  data-dismiss="modal"
+                  defaultValue="Cancel"
+                />
+                <input
+                  type="submit"
+                  className="btn btn-danger"
+                  value="Delete"
+                />
+              </div>
+            </form>
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ function Header() {
                               <NavLink to={"service/create"}>Create</NavLink>
                             </li>
                             <li>
-                              <NavLink to={"service/edit"}>Edit</NavLink>
+                              {/* <NavLink to={"service/edit"}>Edit</NavLink> */}
                             </li>
                           </ul>
                         </li>
@@ -57,7 +57,7 @@ function Header() {
                               <NavLink to={"customer/create"}> Create</NavLink>
                             </li>
                             <li>
-                              <NavLink to={"customer/edit"}>Edit</NavLink>
+                              {/* <NavLink to={"customer/edit"}>Edit</NavLink> */}
                             </li>
                           </ul>
                         </li>
