@@ -228,12 +228,4 @@
     transform: rotate(0deg);
   }
 } 
-.container{
-  margin: 30px 40px;
-}
-.title{
-  margin: 20px ;
-}
-.title h1{
-text-transform: uppercase;
-}
+

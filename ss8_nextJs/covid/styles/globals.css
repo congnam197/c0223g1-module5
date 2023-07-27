@@ -105,3 +105,18 @@ a {
     color-scheme: dark;
   }
 }
+.container{
+  margin: 30px 40px;
+}
+.title{
+  margin: 20px ;
+}
+.title h2{
+text-transform: uppercase;
+}
+table{
+  width: 100%;
+}
+table tr:nth-child(even){
+  background-color: #0071ff33;
+}
