@@ -50,14 +50,14 @@ export default function ContractManager() {
               {contracts.map((contract) => {
                 return (
                   <tr key={contract.contractNumber}>
-                    <th>{contract.id}</th>
-                    <th>{contract.contractNumber}</th>
-                    <th>{contract.customer.name}</th>
-                    <th>{contract.service.service}</th>
-                    <th>{contract.startDate}</th>
-                    <th>{contract.endDate}</th>
-                    <th>{contract.prepaidAmount}</th>
-                    <th>{contract.totalPayment}</th>
+                    <td>{contract.id}</td>
+                    <td>{contract.contractNumber}</td>
+                    <td>{contract.customer.name}</td>
+                    <td>{contract.service.service}</td>
+                    <td>{contract.startDate}</td>
+                    <td>{contract.endDate}</td>
+                    <td>{contract.prepaidAmount}</td>
+                    <td>{contract.totalPayment}</td>
                   </tr>
                 );
               })}

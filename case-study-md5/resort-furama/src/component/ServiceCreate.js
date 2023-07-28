@@ -31,10 +31,7 @@ export default function ServiceCreate() {
               <div className="account-settings">
                 <div className="user-profile">
                   <div className="user-avatar">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                      alt="Maxwell Admin"
-                    />
+                    <img src="/img/logo@2x.png" alt="Maxwell Admin" />
                   </div>
                   <h5 className="user-name">Furama Resort</h5>
                   <h6 className="user-area">furama@luxury.com</h6>
@@ -51,11 +48,96 @@ export default function ServiceCreate() {
           </div>
         </div>
         <Formik
-          initialValues={{
-            typeService: "",
-          }}
+        // initialValues={{
+        //   typeService: 0,
+        //   service: "",
+        //   usable_area: 0,
+        //   costs: 0,
+        //   max_people: 0,
+        //   rental_type: 0,
+        //   standard: "",
+        //   description: "",
+        //   floor: 0,
+        //   pool: 0,
+        //   free: "",
+        //   image: "",
+        //   unit_price: 0,
+        // }}
+        // validationSchema={yup.object().shape({
+        //   typeService: yup
+        //     .number()
+        //     .required("Required")
+        //     .min(1, "No service type selected"),
+        //   service: yup.string().required("Required"),
+        //   usable_area: yup.number().required("Required").min(40, "Min: 40m2"),
+        //   costs: yup
+        //     .number()
+        //     .required("Required")
+        //     .min(1000, "Min: 1000")
+        //     .max(990000000, "Max: 10000000"),
+        //   max_people: yup
+        //     .number()
+        //     .required("Required")
+        //     .min(2, "Min: 2")
+        //     .max(30, "Max: 30"),
+        //   rental_type: yup
+        //     .number()
+        //     .required("Required")
+        //     .min(1, "No rental type selected"),
+        //   standard: yup
+        //     .number()
+        //     .test(
+        //       "required-if-typeFacility-is-3",
+        //       "No room standard selected",
+        //       function (value) {
+        //         if (typeService !== "3") {
+        //           return yup
+        //             .number()
+        //             .required("Required")
+        //             .min(1)
+        //             .isValidSync(value);
+        //         }
+        //         return true;
+        //       }
+        //     ),
+        //   description: yup.string(),
+        //   floor: yup
+        //     .number()
+        //     .test(
+        //       "required-if-typeFacility-is-3",
+        //       "The floor number has not been entered",
+        //       function (value) {
+        //         if (typeService !== "3") {
+        //           return yup
+        //             .number()
+        //             .required("Required")
+        //             .min(1)
+        //             .max(10, "Min 10")
+        //             .isValidSync(value);
+        //         }
+        //         return true;
+        //       }
+        //     ),
+        //   image: yup.string().required("Required"),
+        //   pool: yup
+        //     .number()
+        //     .test(
+        //       "required-if-typeFacility-is-1",
+        //       "Pool area must be greater than 0",
+        //       function (value) {
+        //         if (typeService === "1") {
+        //           return yup
+        //             .number()
+        //             .required("Required")
+        //             .min(1)
+        //             .isValidSync(value);
+        //         }
+        //         return true;
+        //       }
+        //     ),
+        // })}
         >
-          <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+          <Form className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <div className="card h-100">
               <div className="card-body">
                 <div className="row gutters">
@@ -70,14 +152,19 @@ export default function ServiceCreate() {
                         id="typeService"
                         name="typeService"
                       >
-                        {typeService.map((type) => {
+                        {/* {typeService.map((type) => {
                           return (
                             <option key={type.id} value={type.id}>
                               {type.serviceName}
                             </option>
                           );
-                        })}
+                        })} */}
                       </Field>
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="typeService"
+                      />
                     </div>
                   </div>
                 </div>
@@ -87,46 +174,66 @@ export default function ServiceCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="fullName">Service Name</label>
-                      <input
+                      <label htmlFor="service">Service Name</label>
+                      <Field
                         type="text"
                         className="form-control"
-                        id="serviceName"
-                        name="serviceName"
+                        id="service"
+                        name="service"
                         placeholder="Enter service name"
                       />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="service"
+                      />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="area">Area</label>
-                      <input
+                      <label htmlFor="usable_area">Area</label>
+                      <Field
                         type="number"
                         className="form-control"
-                        id="area"
+                        id="usable_area"
                         placeholder="Enter the area"
                       />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <label htmlFor="phone">Rental Cost</label>
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="phone"
-                        placeholder="Enter rental cost"
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="usable_area"
                       />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="website">Capacity People</label>
-                      <input
+                      <label htmlFor="costs">Rental Cost</label>
+                      <Field
                         type="number"
                         className="form-control"
-                        id="website"
+                        id="costs"
+                        placeholder="Enter rental cost"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="costs"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div className="form-group">
+                      <label htmlFor="max_people">Capacity People</label>
+                      <Field
+                        type="number"
+                        className="form-control"
+                        id="max_people"
                         placeholder="Entre capacity"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="max_people"
                       />
                     </div>
                   </div>
@@ -134,69 +241,90 @@ export default function ServiceCreate() {
                 <div className="row gutters">
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="rentalType">Rental type</label>
+                      <label htmlFor="rental_type">Rental type</label>
                       <Field
                         as="select"
                         className="form-control"
-                        id="rentalType"
-                        name="rentalType"
+                        id="rental_type"
+                        name="rental_type"
                       >
-                        {typeRental.map((type) => {
+                        {/* {typeRental.map((type) => {
                           return (
                             <option key={type.id} value={type.id}>
                               {type.rentalName}
                             </option>
                           );
-                        })}
+                        })} */}
                       </Field>
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="rental_type"
+                      />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="standardRoom">Standard room</label>
-                      <input
-                        type="name"
+                      <label htmlFor="standard">Standard room</label>
+                      <Field
+                        type="text"
                         className="form-control"
-                        id="standardRoom"
-                        name="standardRoom"
+                        id="standard"
+                        name="standard"
                         placeholder="Enter Standard room"
                       />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <label htmlFor="otherAmenities">Other Amenities</label>
-                      <input
-                        type="name"
-                        className="form-control"
-                        id="otherAmenities"
-                        name="otherAmenities"
-                        placeholder="Enter Other Amenities"
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="standard"
                       />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="areaPool">Swimming Pool Area</label>
-                      <input
-                        type="name"
+                      <label htmlFor="description">Other Amenities</label>
+                      <Field
+                        type="text"
                         className="form-control"
-                        id="areaPool"
-                        name="areaPool"
+                        id="description"
+                        name="description"
+                        placeholder="Enter Other Amenities"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="description"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div className="form-group">
+                      <label htmlFor="pool">Swimming Pool Area</label>
+                      <Field
+                        type="number"
+                        className="form-control"
+                        id="pool"
+                        name="pool"
                         placeholder="Enter Swimming Pool Area"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="pool"
                       />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
                       <label htmlFor="floor">Number of floors</label>
-                      <input
-                        type="name"
+                      <Field
+                        type="number"
                         className="form-control"
                         id="floor"
                         name="floor"
                         placeholder="Enter Number of Floors"
                       />
+                      <ErrorMessage component="div" className="text-error" />
                     </div>
                   </div>
                 </div>
@@ -208,25 +336,37 @@ export default function ServiceCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="zIp">Accompanied service Name</label>
-                      <input
+                      <label htmlFor="free">Accompanied service Name</label>
+                      <Field
                         type="text"
                         className="form-control"
-                        id="accompanied-service"
+                        id="free"
+                        name="free"
                         placeholder="Accompanied service Name"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="free"
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="zIp">Unit price</label>
-                      <input
+                      <label htmlFor="unit_price">Unit price</label>
+                      <Field
                         type="text"
                         className="form-control"
-                        id="unit-price"
+                        id="unit_price"
                         placeholder="Unit price"
+                      />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="unit_price"
                       />
                     </div>
                   </div>
                 </div>
+
                 <div className="row gutters">
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="text-right">
@@ -251,7 +391,7 @@ export default function ServiceCreate() {
                 </div>
               </div>
             </div>
-          </div>
+          </Form>
         </Formik>
       </div>
     </div>

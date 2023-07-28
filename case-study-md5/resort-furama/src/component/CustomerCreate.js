@@ -4,9 +4,12 @@ import * as yup from "yup";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { getTypeCustomer } from "../service/typeCustomer";
-import { useState,useEffect } from "react";
+import { findTypeCustomerById, getTypeCustomer } from "../service/typeCustomer";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { createCustomer } from "../service/customer";
 export default function CustomerCreate() {
+  const navigate = useNavigate();
   const [typeCustomer, setTypeCustomer] = useState([]);
   const typeCustomers = async () => {
     const data = await getTypeCustomer();
@@ -15,6 +18,20 @@ export default function CustomerCreate() {
   useEffect(() => {
     typeCustomers();
   }, []);
+  const handleCreate = async (customer) => {
+    const typeCustomer = await findTypeCustomerById(customer.customer_type);
+    //  
+    await createCustomer({
+      ...customer,
+      customer_type: typeCustomer,
+    })
+      .then(() => {
+        navigate("/customer/list");
+      })
+      .catch(() => {
+        navigate("/customer/create");
+      });
+  };
 
   return (
     <div className="container" id="customer-creation">
@@ -26,21 +43,17 @@ export default function CustomerCreate() {
               <div className="account-settings">
                 <div className="user-profile">
                   <div className="user-avatar">
-                    {/* <Field type="file" /> */}
+                    <img src="/img/logo@2x.png" alt="logo" />
                   </div>
-                  [name]
-                  <h6 className="user-email">
-                    <a
-                      href="/cdn-cgi/l/email-protection"
-                      className="__cf_email__"
-                    >
-                      [email&nbsp;protected]
-                    </a>
-                  </h6>
+                  <h5 className="user-name">Furama Resort</h5>
+                  <h6 className="user-area">furama@luxury.com</h6>
                 </div>
                 <div className="about">
                   <h5>About</h5>
-                  <p>[Profile]</p>
+                  <p>
+                    THIS WORLD CLASS RESORT, FURAMA DANANG, REPUTABLE FOR BEING
+                    A CULINARY RESORT IN VIETNAM
+                  </p>
                 </div>
               </div>
             </div>
@@ -48,34 +61,35 @@ export default function CustomerCreate() {
         </div>
         <Formik
           initialValues={{
-            fullName: "",
+            name: "",
             email: "",
-            phone: "",
+            phone_number: "",
             date_of_birth: "",
             address: "",
-            gender: "",
-            identity_card: "",
-            type_customer: "",
+            gender: "male",
+            id_card: "",
+            customer_type: 0,
           }}
           validationSchema={yup.object().shape({
-            fullName: yup
+            name: yup
               .string()
               .required("required")
               .matches(/^([A-Z][a-z]+\s)+([A-Z][a-z]+)$/, "Invalid name"),
             email: yup.string().required("required").email("Invalid Email"),
-            phone: yup
+            phone_number: yup
               .string()
               .required("required")
               .matches(
                 /^((091)|(091)|(8490)|(8491))[0-9]{7}$/,
                 "Invalid phone number"
               ),
-            identity_card: yup
-              .string()
-              .required("required")
-              .matches(/^[0-9]{9}$/, "Invalid Identity Card"),
+            id_card: yup.string().required("required"),
+
+            customer_type: yup.number().required("required").min(1).max(5),
           })}
-          onSubmit={() => {}}
+          onSubmit={(values) => {
+            handleCreate(values);
+          }}
         >
           <Form className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <div className="card h-100">
@@ -86,16 +100,16 @@ export default function CustomerCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="fullName">Full Name *</label>
+                      <label htmlFor="name">Full Name *</label>
                       <Field
                         type="text"
                         className="form-control"
-                        id="fullName"
-                        name="fullName"
+                        id="name"
+                        name="name"
                         placeholder="Enter full name"
                       />
                       <ErrorMessage
-                        name="fullName"
+                        name="name"
                         component="div"
                         className="text-error"
                       />
@@ -120,16 +134,16 @@ export default function CustomerCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="phone">Phone *</label>
+                      <label htmlFor="phone_number">Phone *</label>
                       <Field
                         type="text"
                         className="form-control"
-                        id="phone"
-                        name="phone"
+                        id="phone_number"
+                        name="phone_number"
                         placeholder="Enter phone number"
                       />
                       <ErrorMessage
-                        name="phone"
+                        name="phone_number"
                         component="div"
                         className="text-error"
                       />
@@ -138,7 +152,7 @@ export default function CustomerCreate() {
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
                       <label htmlFor="date_of_birth">Birthday *</label>
-                      <div className="data-picker">
+                      {/* <div className="data-picker">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             format="MM/DD/YYYY"
@@ -148,14 +162,15 @@ export default function CustomerCreate() {
                             }}
                           />
                         </LocalizationProvider>
-                      </div>
+                      </div> */}
+                      <Field name="date_of_birth" type="date" className="form-control" id="date_of_birth" />
                     </div>
                   </div>
                 </div>
                 <div className="row gutters">
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="address">Address *</label>
+                      <label htmlFor="address">Address </label>
                       <Field
                         type="text"
                         className="form-control"
@@ -174,7 +189,7 @@ export default function CustomerCreate() {
                     <div className="form-group gender">
                       <label style={{ fontSize: "15px" }}>Gender </label>
                       <label htmlFor="male" style={{ marginLeft: "20px" }}>
-                        Nam{" "}
+                        Male{" "}
                       </label>
                       <Field
                         style={{ marginLeft: "10px" }}
@@ -184,7 +199,7 @@ export default function CustomerCreate() {
                         value="male"
                       />
                       <label htmlFor="female" style={{ marginLeft: "20px" }}>
-                        Nữ{" "}
+                       Female{" "}
                       </label>
                       <Field
                         style={{ marginLeft: "10px" }}
@@ -197,16 +212,16 @@ export default function CustomerCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="identity-card">Identity Card *</label>
+                      <label htmlFor="id-card">Identity Card *</label>
                       <Field
                         type="text"
                         className="form-control"
-                        id="identity_card"
-                        name="identity_card"
+                        id="id_card"
+                        name="id_card"
                         placeholder="Enter Identity Card"
                       />
                       <ErrorMessage
-                        name="identity_card"
+                        name="id_card"
                         component="div"
                         className="text-error"
                       />
@@ -214,8 +229,9 @@ export default function CustomerCreate() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label htmlFor="type_customer">Type Customer</label>
-                      <select name="type_customer">
+                      <label htmlFor="customer_type">Type Customer</label>
+                      <Field as="select" name="customer_type">
+                        <option>Choice a type</option>
                         {typeCustomer.map((type) => {
                           return (
                             <option key={type.id} value={type.id}>
@@ -223,7 +239,8 @@ export default function CustomerCreate() {
                             </option>
                           );
                         })}
-                      </select>
+                      </Field>
+                      <ErrorMessage name="customer_type" component="div" className="text-error" />
                     </div>
                   </div>
                 </div>
@@ -239,7 +256,7 @@ export default function CustomerCreate() {
                         Cancel
                       </button>
                       <button
-                        type="button"
+                        type="submit"
                         id="submit"
                         name="submit"
                         className="btn btn-primary"

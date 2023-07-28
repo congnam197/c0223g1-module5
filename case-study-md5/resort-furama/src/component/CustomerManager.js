@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {  getListCustomers } from "../service/customer";
+import {
+  findCustomerById,
+  getListCustomers,
+  removeCustomer,
+} from "../service/customer";
+import moment from "moment";
+import Swal from "sweetalert2";
+import { Button } from "bootstrap";
 export default function CustomerManager() {
   const [customers, setCustomers] = useState([]);
   const getCustomer = async () => {
@@ -10,6 +17,34 @@ export default function CustomerManager() {
   useEffect(() => {
     getCustomer();
   }, []);
+
+  const deleteCustomer = async (id) => {
+    await removeCustomer(id);
+    await getCustomer();
+    await Swal.fire({
+      title: "Deleted !",
+      icon: "success",
+      timer: 2000,
+    });
+  };
+
+  function confirmDelete(id, name) {
+    Swal.fire({
+      title: "Delete Customer",
+      text: "do you want to delete " + name + " ?",
+      icon: "warning",
+      showCancelButton: true,
+      cancelButtonColor: "#3085d6",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#d33",
+      confirmButtontext: "Delete",
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        deleteCustomer(id);
+      }
+    });
+  }
   return (
     <>
       <div className="container-xl" id="customer">
@@ -43,7 +78,7 @@ export default function CustomerManager() {
                   <th>Email</th>
                   <th>Address</th>
                   <th>Phone Number</th>
-                  <th>Gender</th>
+                  {/* <th>Gender</th> */}
                   <th>Birthday</th>
                   <th>Identity Card</th>
                   <th>Type Customer</th>
@@ -51,35 +86,39 @@ export default function CustomerManager() {
                 </tr>
               </thead>
               <tbody>
-                {customers.map((customer) => {
-                  return(
-                  <tr key={customer.id}>
-                    <td>{customer.id}</td>
-                    <td>{customer.name}</td>
-                    <td>{customer.email}</td>
-                    <td>{customer.address}</td>
-                    <td>{customer.phone_number}</td>
-                    <td>{customer.gender}</td>
-                    <td>{customer.date_of_birth}</td>
-                    <td>{customer.id_card}</td>
-                    <td>{customer.customer_type}</td>
-                    <td>
-                      <a
-                        href="edit_customer.html"
-                        className="edit"
-                        data-toggle="modal"
-                      >
-                        <i className="fa fa-pencil-square-o" aria-hidden="true"></i>
-                      </a>
-                      <a
-                        href="#deleteEmployeeModal"
-                        className="delete"
-                        data-toggle="modal"
-                      >
-                        <i className="fa fa-trash" aria-hidden="true"></i>
-                      </a>
-                    </td>
-                  </tr>
+                {customers.map((customer, index) => {
+                  return (
+                    <tr key={index}>
+                      <td>{customer.id}</td>
+                      <td>{customer.name}</td>
+                      <td>{customer.email}</td>
+                      <td>{customer.address}</td>
+                      <td>{customer.phone_number}</td>
+                      {/* <td>{customer.gender}</td> */}
+                      <td>
+                        {moment(customer.date_of_birth, "YYYY-MM-DD").format(
+                          "DD/MM/YYYY"
+                        )}
+                      </td>
+                      <td>{customer.id_card}</td>
+                      <td>{customer.customer_type.name}</td>
+                      <td>
+                        <Link to={`/customer/edit/${customer.id}`}>
+                          <i
+                            className="fa fa-pencil-square-o"
+                            aria-hidden="true"
+                          ></i>
+                        </Link>
+                        <button
+                          className="btn-delete"
+                          onClick={() => {
+                            confirmDelete(customer.id, customer.name);
+                          }}
+                        >
+                          <i className="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                      </td>
+                    </tr>
                   );
                 })}
               </tbody>
@@ -160,7 +199,7 @@ export default function CustomerManager() {
                 <input
                   type="submit"
                   className="btn btn-danger"
-                  defaultValue="Delete"
+                  value="Delete"
                 />
               </div>
             </form>

@@ -27,7 +27,7 @@ function App() {
           <Route path="service/create" element={<ServiceCreate />} />
           <Route path="customer/list" element={<CustomerManager />} />
           <Route path="customer/create" element={<CustomerCreate />} />
-          <Route path="customer/edit" element={<CustomerEdit />} />
+          <Route path="customer/edit/:id" element={<CustomerEdit />} />
           <Route path="contract/list" element={<ContractManager />} />
           <Route path="contract/create" element={<ContractCreate />} />
         </Routes>
