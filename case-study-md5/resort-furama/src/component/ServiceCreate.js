@@ -1,12 +1,20 @@
 import React from "react";
-import { getTypeService } from "../service/typeService";
+import { findTypeServiceById, getTypeService } from "../service/typeService";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { getTypeRental } from "../service/typeRental";
+import { findTypeRentalById, getTypeRental } from "../service/typeRental";
+import {
+  createService,
+  editService,
+  findServiceById,
+} from "../service/service";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 export default function ServiceCreate() {
-  const [typeService, setTypeService] = useState([]);
+  const navigate = useNavigate();
+  const [typeSer, setTypeService] = useState([]);
   const [typeRental, setTypeRental] = useState([]);
   const getListTypeService = async () => {
     const data = await getTypeService();
@@ -20,6 +28,31 @@ export default function ServiceCreate() {
     getListTypeService();
     getListTypeRental();
   }, []);
+  //  submit
+  const handleSubmit = async (values) => {
+    console.log(values.typeService);
+    const type_service = await findTypeServiceById(values.typeService);
+    console.log(type_service);
+    const type_rental = await findTypeRentalById(values.rental_type);
+    const object = {
+      ...values,
+      typeService: type_service,
+      type_rental: type_rental,
+    };
+    await createService(object)
+      .then(() => {
+        navigate("/");
+        Swal.fire({
+          title: "Success",
+          text: "New service has been created",
+          icon: "success",
+          timer: 2000,
+        });
+      })
+      .catch(() => {
+        navigate("/service/create");
+      });
+  };
 
   return (
     <div className="container" id="service-creation">
@@ -48,94 +81,61 @@ export default function ServiceCreate() {
           </div>
         </div>
         <Formik
-        // initialValues={{
-        //   typeService: 0,
-        //   service: "",
-        //   usable_area: 0,
-        //   costs: 0,
-        //   max_people: 0,
-        //   rental_type: 0,
-        //   standard: "",
-        //   description: "",
-        //   floor: 0,
-        //   pool: 0,
-        //   free: "",
-        //   image: "",
-        //   unit_price: 0,
-        // }}
-        // validationSchema={yup.object().shape({
-        //   typeService: yup
-        //     .number()
-        //     .required("Required")
-        //     .min(1, "No service type selected"),
-        //   service: yup.string().required("Required"),
-        //   usable_area: yup.number().required("Required").min(40, "Min: 40m2"),
-        //   costs: yup
-        //     .number()
-        //     .required("Required")
-        //     .min(1000, "Min: 1000")
-        //     .max(990000000, "Max: 10000000"),
-        //   max_people: yup
-        //     .number()
-        //     .required("Required")
-        //     .min(2, "Min: 2")
-        //     .max(30, "Max: 30"),
-        //   rental_type: yup
-        //     .number()
-        //     .required("Required")
-        //     .min(1, "No rental type selected"),
-        //   standard: yup
-        //     .number()
-        //     .test(
-        //       "required-if-typeFacility-is-3",
-        //       "No room standard selected",
-        //       function (value) {
-        //         if (typeService !== "3") {
-        //           return yup
-        //             .number()
-        //             .required("Required")
-        //             .min(1)
-        //             .isValidSync(value);
-        //         }
-        //         return true;
-        //       }
-        //     ),
-        //   description: yup.string(),
-        //   floor: yup
-        //     .number()
-        //     .test(
-        //       "required-if-typeFacility-is-3",
-        //       "The floor number has not been entered",
-        //       function (value) {
-        //         if (typeService !== "3") {
-        //           return yup
-        //             .number()
-        //             .required("Required")
-        //             .min(1)
-        //             .max(10, "Min 10")
-        //             .isValidSync(value);
-        //         }
-        //         return true;
-        //       }
-        //     ),
-        //   image: yup.string().required("Required"),
-        //   pool: yup
-        //     .number()
-        //     .test(
-        //       "required-if-typeFacility-is-1",
-        //       "Pool area must be greater than 0",
-        //       function (value) {
-        //         if (typeService === "1") {
-        //           return yup
-        //             .number()
-        //             .required("Required")
-        //             .min(1)
-        //             .isValidSync(value);
-        //         }
-        //         return true;
-        //       }
-        //     ),
-        // })}
+          initialValues={{
+            typeService: 0,
+            service: "",
+            usable_area: 0,
+            costs: 0,
+            max_people: 0,
+            rental_type: 0,
+            standard: "",
+            description: "",
+            floor: 0,
+            pool: 0,
+            free: "",
+            image: "",
+            unit_price: 0,
+          }}
+          validationSchema={yup.object().shape({
+            typeService: yup
+              .number()
+              .required("Required")
+              .min(1, "No service type selected"),
+            service: yup.string().required("Required"),
+            usable_area: yup.number().required("Required").min(40, "Min: 40m2"),
+            costs: yup
+              .number()
+              .required("Required")
+              .min(1000, "Min: 1000")
+              .max(990000000, "Max: 10000000"),
+            max_people: yup
+              .number()
+              .required("Required")
+              .min(2, "Min: 2")
+              .max(30, "Max: 30"),
+            rental_type: yup
+              .number()
+              .required("Required")
+              .min(1, "No rental type selected"),
+            standard: yup.string().required("required"),
+            description: yup.string(),
+            floor: yup
+              .number()
+              .required(
+                "required-if-typeFacility-is-3",
+                "The floor number has not been entered"
+              ),
+            image: yup.string().required("Required"),
+            pool: yup
+              .number()
+              .required(
+                "required-if-typeFacility-is-1",
+                "Pool area must be greater than 0"
+              ),
+          })}
+          onSubmit={(values) => {
+            handleSubmit(values);
+          }}
         >
           <Form className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <div className="card h-100">
@@ -152,13 +152,14 @@ export default function ServiceCreate() {
                         id="typeService"
                         name="typeService"
                       >
-                        {/* {typeService.map((type) => {
+                        <option value={0}>Choice a service</option>
+                        {typeSer.map((type) => {
                           return (
                             <option key={type.id} value={type.id}>
                               {type.serviceName}
                             </option>
                           );
-                        })} */}
+                        })}
                       </Field>
                       <ErrorMessage
                         component="div"
@@ -196,6 +197,7 @@ export default function ServiceCreate() {
                         type="number"
                         className="form-control"
                         id="usable_area"
+                        name="usable_area"
                         placeholder="Enter the area"
                       />
                       <ErrorMessage
@@ -212,6 +214,7 @@ export default function ServiceCreate() {
                         type="number"
                         className="form-control"
                         id="costs"
+                        name="costs"
                         placeholder="Enter rental cost"
                       />
                       <ErrorMessage
@@ -228,6 +231,7 @@ export default function ServiceCreate() {
                         type="number"
                         className="form-control"
                         id="max_people"
+                        name="max_people"
                         placeholder="Entre capacity"
                       />
                       <ErrorMessage
@@ -248,13 +252,14 @@ export default function ServiceCreate() {
                         id="rental_type"
                         name="rental_type"
                       >
-                        {/* {typeRental.map((type) => {
+                        <option>Choice a rental type</option>
+                        {typeRental.map((type) => {
                           return (
                             <option key={type.id} value={type.id}>
                               {type.rentalName}
                             </option>
                           );
-                        })} */}
+                        })}
                       </Field>
                       <ErrorMessage
                         component="div"
@@ -324,7 +329,11 @@ export default function ServiceCreate() {
                         name="floor"
                         placeholder="Enter Number of Floors"
                       />
-                      <ErrorMessage component="div" className="text-error" />
+                      <ErrorMessage
+                        component="div"
+                        className="text-error"
+                        name="floor"
+                      />
                     </div>
                   </div>
                 </div>
@@ -350,12 +359,15 @@ export default function ServiceCreate() {
                         name="free"
                       />
                     </div>
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
                       <label htmlFor="unit_price">Unit price</label>
                       <Field
-                        type="text"
+                        type="number"
                         className="form-control"
                         id="unit_price"
+                        name="unit_price"
                         placeholder="Unit price"
                       />
                       <ErrorMessage
@@ -366,7 +378,6 @@ export default function ServiceCreate() {
                     </div>
                   </div>
                 </div>
-
                 <div className="row gutters">
                   <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div className="text-right">
@@ -379,7 +390,7 @@ export default function ServiceCreate() {
                         Cancel
                       </button>
                       <button
-                        type="button"
+                        type="submit"
                         id="submit"
                         name="submit"
                         className="btn btn-primary"

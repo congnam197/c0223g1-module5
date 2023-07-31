@@ -4,6 +4,6 @@ export async function getTypeService() {
   return res.data;
 }
 export async function findTypeServiceById(id) {
-  const res = await axios.get("http://localhost:8080/typeService"+id);
+  const res = await axios.get("http://localhost:8080/typeService/" +id);
   return res.data;
 }

@@ -1,13 +1,14 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { findTypeCustomerById, getTypeCustomer } from "../service/typeCustomer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { createCustomer } from "../service/customer";
+import Swal from "sweetalert2";
 export default function CustomerCreate() {
   const navigate = useNavigate();
   const [typeCustomer, setTypeCustomer] = useState([]);
@@ -20,13 +21,19 @@ export default function CustomerCreate() {
   }, []);
   const handleCreate = async (customer) => {
     const typeCustomer = await findTypeCustomerById(customer.customer_type);
-    //  
+    //
     await createCustomer({
       ...customer,
       customer_type: typeCustomer,
     })
       .then(() => {
         navigate("/customer/list");
+        Swal.fire({
+          title: "Success",
+          text: "New customer created successfully",
+          icon: "success",
+          timer: 2000,
+        });
       })
       .catch(() => {
         navigate("/customer/create");
@@ -163,7 +170,12 @@ export default function CustomerCreate() {
                           />
                         </LocalizationProvider>
                       </div> */}
-                      <Field name="date_of_birth" type="date" className="form-control" id="date_of_birth" />
+                      <Field
+                        name="date_of_birth"
+                        type="date"
+                        className="form-control"
+                        id="date_of_birth"
+                      />
                     </div>
                   </div>
                 </div>
@@ -199,7 +211,7 @@ export default function CustomerCreate() {
                         value="male"
                       />
                       <label htmlFor="female" style={{ marginLeft: "20px" }}>
-                       Female{" "}
+                        Female{" "}
                       </label>
                       <Field
                         style={{ marginLeft: "10px" }}
@@ -240,7 +252,11 @@ export default function CustomerCreate() {
                           );
                         })}
                       </Field>
-                      <ErrorMessage name="customer_type" component="div" className="text-error" />
+                      <ErrorMessage
+                        name="customer_type"
+                        component="div"
+                        className="text-error"
+                      />
                     </div>
                   </div>
                 </div>
